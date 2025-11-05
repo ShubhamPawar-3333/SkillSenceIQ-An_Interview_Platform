@@ -7,9 +7,9 @@ export const inngest = new Inngest({ id: "skillsenceiq" });
 
 const syncUser = inngest.createFunction(
     {id: "sync-user"},
-    {event: "clerk/user.created"},
+    {event: "webhook-integration/user.created"},
     async ({ event }) => {
-        await connectDB()
+        await connectDB();
         
         const {id, email_addresses, first_name, last_name, image_url} = event.data;
 
@@ -24,11 +24,11 @@ const syncUser = inngest.createFunction(
 
         // TODO: Do something else
     }
-)
+);
 
 const deleteUserFromDB = inngest.createFunction(
     {id: "delete-user-from-db"},
-    {event: "clerk/user.deleted"},
+    {event: "webhook-integration/user.deleted"},
     async ({ event }) => {
         await connectDB()
         
@@ -38,6 +38,6 @@ const deleteUserFromDB = inngest.createFunction(
 
         // DO something else
     }
-)
+);
 
 export const functions = [syncUser, deleteUserFromDB];
