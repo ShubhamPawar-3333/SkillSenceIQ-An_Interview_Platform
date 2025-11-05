@@ -7,7 +7,7 @@ export const inngest = new Inngest({ id: "skillsenceiq" });
 
 const syncUser = inngest.createFunction(
     {id: "sync-user"},
-    {event: "clerk/user.ceated"},
+    {event: "clerk/user.created"},
     async ({ event }) => {
         await connectDB()
         
