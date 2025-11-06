@@ -6,7 +6,8 @@ const apiKey = ENV.STREAM_API_KEY;
 const apiSecret = ENV.STREAM_API_SECRET;
 
 if (!apiKey || !apiSecret) {
-    console.error("STREAM_API_KEY or STREAM_API_SECRET is missing")
+    console.error("STREAM_API_KEY or STREAM_API_SECRET is missing");
+    throw new Error("STREAM_API_KEY or STREAM_API_SECRET is missing from environment variables");
 };
 
 export const chatClient = StreamChat.getInstance(apiKey, apiSecret);
@@ -17,6 +18,7 @@ export const upsertStreamUser = async (userData) => {
         console.log("Stream user upserted successfully:", userData);
     } catch (error) {
         console.error("Error upserting Stream user:", error);
+        throw error; // Propagate to allow caller to handle/retry
     }
 };
 
@@ -26,6 +28,7 @@ export const deleteStreamUser = async (userId) => {
         console.log("Stream user deleted successfully:", userId);
     } catch (error) {
         console.error("Error deleting Stream user:", error);
+        throw error; // Propagate to allow caller to handle/retry
     }
 };
 
